@@ -3,13 +3,13 @@ let bcrypt = require("bcryptjs");
 
 exports.change_pass = async (req, res) => {
   try {
-    let token = req.cookies.devjwt;
+    // let token = req.cookies.devjwt;
     let password = req.body.pass;
     let newpass = req.body.newpass;
     console.log("newPass", newpass);
     let hashedPassword = await bcrypt.hash(newpass, 10);
 
-    let data = await admin.findOne({ auth_key: token });
+    let data = await admin.findOne({ role: "Admin" });
     let check = bcrypt.compareSync(password, data.pass);
     if (!check) {
       return res.status(404).json({
@@ -18,7 +18,7 @@ exports.change_pass = async (req, res) => {
       });
     }
     let passwordUpdate = await admin.findOneAndUpdate(
-      { auth_key: token },
+      { role: "Admin" },
       { $set: { pass: hashedPassword } }
     );
     if (passwordUpdate) {
@@ -38,4 +38,3 @@ exports.change_pass = async (req, res) => {
     console.log(error);
   }
 };
-

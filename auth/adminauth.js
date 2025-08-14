@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
     if (token) {
       console.log("devjwt Token received:", token);
 
-      const { _id } = jwt.verify(token, "devbhumi");
+      const { _id } = jwt.verify(token, "sdguru");
       console.log("Decoded user ID:", _id);
 
       const adminData = await admin.findOne({ _id });

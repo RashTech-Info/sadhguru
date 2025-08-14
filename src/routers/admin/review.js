@@ -23,8 +23,8 @@ let upload = multer({
 
 router.post("/addReview", upload.single("userImages"), addReview);
 router.get("/getActiveReviews", getActiveReviews);
-router.get("/getAllReviews", auth, getAllReviews);
-router.patch("/updateReview/:id", auth, updateReview);
-router.delete("/deleteReview/:id", auth, deleteReview);
+router.get("/getAllReviews",  getAllReviews);
+router.patch("/updateReview/:id",  updateReview);
+router.delete("/deleteReview/:id",  deleteReview);
 
 module.exports = router;

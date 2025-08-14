@@ -32,7 +32,7 @@ exports.adminLogin = async (req, res) => {
     console.log("admin Logged in");
     console.log("ID is", data._id);
 
-    const token = jwt.sign({ _id: data._id.toString() }, "devbhumi", {
+    const token = jwt.sign({ _id: data._id.toString() }, "sdguru", {
       expiresIn: "1d",
     });
 

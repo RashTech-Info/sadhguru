@@ -1,9 +1,9 @@
 let admin = require("../../model/Admin");
 
 exports.Admin_profile = async (req, res) => {
-  let token = req.cookies.devjwt;
+  // let token = req.cookies.devjwt;
 
-  let data = await admin.findOne({ auth_key: token });
+  let data = await admin.findOne({ role: "Admin" });
   if (data) {
     return res.status(200).json({
       data: data,

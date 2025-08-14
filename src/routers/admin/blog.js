@@ -22,13 +22,13 @@ let upload = multer({
 });
 
 // Create a new blog
-router.post("/addBlog", auth,upload.single("image"), addBlog);
+router.post("/addBlog", upload.single("image"), addBlog);
 
 // Update an existing blog
-router.patch("/updateBlog/:id", auth, upload.single("image"),updateBlog);
+router.patch("/updateBlog/:id", upload.single("image"), updateBlog);
 
 // Delete a blog
-router.delete("/deleteBlog/:id", auth, deleteBlog);
+router.delete("/deleteBlog/:id", deleteBlog);
 
 // Get all blogs
 router.get("/getAllBlogs", getAllBlogs);

@@ -9,13 +9,13 @@ exports.Update_admin = async (req, res) => {
   let gender = req.body.gender;
   let city = req.body.city;
   let country = req.body.country;
-  let token = req.cookies.devjwt;
+  // let token = req.cookies.devjwt;
 
   // Handle file upload (only update if a new file is uploaded)
   let new_image = req.file ? req.file.filename : null;
 
   // Fetch the current (admin) to check existing image
-  let existing_user = await admin.findOne({ auth_key: token });
+  let existing_user = await admin.findOne({ role: "Admin" });
 
   if (!existing_user) {
     return res.status(404).json({
@@ -30,7 +30,7 @@ exports.Update_admin = async (req, res) => {
   let admin_image = new_image ? new_image : existing_user.admin_image;
 
   let update_data = await admin.findOneAndUpdate(
-    { auth_key: token },
+    { role: "Admin" },
     {
       name: name,
       mobile: mobile,
@@ -61,4 +61,3 @@ exports.Update_admin = async (req, res) => {
     });
   }
 };
-

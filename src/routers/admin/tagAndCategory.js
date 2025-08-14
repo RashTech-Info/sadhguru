@@ -13,14 +13,14 @@ const {
 const auth = require("../../../auth/adminauth");
 
 // tags ------------------
-router.post("/tag", auth, addTag);
+router.post("/tag",  addTag);
 router.get("/tag", getAllTags);
-router.put("/tag/:id", auth, updateTag);
-router.delete("/tag/:id", auth, deleteTag);
+router.put("/tag/:id",  updateTag);
+router.delete("/tag/:id",  deleteTag);
 
 // category -------------
-router.post("/addCategory", auth, addCategory);
-router.put("/updateCategory/:id", auth, updateCategory);
-router.delete("/deleteCategory/:id", auth, deleteCategory);
+router.post("/addCategory",  addCategory);
+router.put("/updateCategory/:id",  updateCategory);
+router.delete("/deleteCategory/:id",  deleteCategory);
 router.get("/getAllCategory", getAllCategories);
 module.exports = router;
