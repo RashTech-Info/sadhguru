@@ -76,7 +76,7 @@ exports.otpVerify = async (req, res) => {
     if (data.otp == otp) {
       return res.status(200).json({
         data: data,
-        message: "Otp verification failed",
+        message: "Otp verification success",
         success: true,
         status: 200,
       });
