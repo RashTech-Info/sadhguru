@@ -12,7 +12,7 @@ const app = express();
 // CORS Configuration
 app.use(
   cors({
-    origin: ["http://localhost:5173"], // Replace with your frontend URL
+    origin: ["http://localhost:5173", "https://sadhguruedutech.com"], // Replace with your frontend URL
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true,
   })
@@ -29,7 +29,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "/public")));
 app.use("/uploads", express.static("public/uploads"));
 app.use("/gallery", express.static("public/gallery"));
-
 
 // Connect to Database
 connectDB();
