@@ -28,9 +28,9 @@ exports.addContactUs = async (req, res) => {
       html: `
         <h3>New Contact Inquiry</h3>
         <p><strong>Name:</strong> ${contact.name}</p>
-        <p><strong>Name:</strong> ${contact.subject}</p>
+        <p><strong>Subject:</strong> ${contact.subject}</p>
         <p><strong>Email:</strong> ${contact.email}</p>
-        <p><strong>Email:</strong> ${contact.number}</p>
+        <p><strong>Phone:</strong> ${contact.number}</p>
         <p><strong>Message:</strong> ${contact.message}</p>
       `,
     });
