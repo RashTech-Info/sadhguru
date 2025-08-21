@@ -141,43 +141,51 @@ exports.getCountryPageById = async (req, res) => {
   }
 };
 
+// ADD -------------------
 exports.addCountryPage = async (req, res) => {
   try {
     const {
       countryName,
-      fees,
-      duration,
-      intake,
-      language,
-      eligibility,
+      discription,
       whyChoose,
       costBreakdown,
       topUniversities,
+      faq,
+      gallery,
     } = req.body;
 
     // Helper to parse JSON if sent as strings
     const parseIfJSON = (value) => {
       try {
-        return typeof value === 'string' ? JSON.parse(value) : value;
+        return typeof value === "string" ? JSON.parse(value) : value;
       } catch {
         return value;
       }
     };
 
-    // Image upload (if using multer)
-    const countryImage = req.file ? req.file.filename : null;
+    // Handle multiple images (if using multer fields)
+    const countryImage = req.files?.countryImage
+      ? req.files.countryImage[0].filename
+      : null;
+
+    const flagImage = req.files?.flagImage
+      ? req.files.flagImage[0].filename
+      : null;
+
+    const galleryImages = req.files?.gallery
+      ? req.files.gallery.map((file) => file.filename)
+      : parseIfJSON(gallery);
 
     const newCountry = new countryPageModel({
       countryName,
       countryImage,
-      fees: parseIfJSON(fees),
-      duration: parseIfJSON(duration),
-      intake,
-      language: parseIfJSON(language),
-      eligibility: parseIfJSON(eligibility),
+      flagImage,
+      discription,
       whyChoose: parseIfJSON(whyChoose),
       costBreakdown: parseIfJSON(costBreakdown),
       topUniversities: parseIfJSON(topUniversities),
+      faq: parseIfJSON(faq),
+      gallery: galleryImages,
     });
 
     await newCountry.save();
@@ -196,45 +204,51 @@ exports.addCountryPage = async (req, res) => {
   }
 };
 
-// update -----------
+// UPDATE -------------------
 exports.updateCountryPage = async (req, res) => {
   try {
     const { id } = req.params;
-
     const {
       countryName,
-      fees,
-      duration,
-      intake,
-      language,
-      eligibility,
+      discription,
       whyChoose,
       costBreakdown,
       topUniversities,
+      faq,
+      gallery,
     } = req.body;
 
-    const countryImage = req.file ? req.file.filename : null;
-
-    // Helper to parse JSON if sent as strings
+    // Helper
     const parseIfJSON = (value) => {
       try {
-        return typeof value === 'string' ? JSON.parse(value) : value;
+        return typeof value === "string" ? JSON.parse(value) : value;
       } catch {
         return value;
       }
     };
 
+    const countryImage = req.files?.countryImage
+      ? req.files.countryImage[0].filename
+      : null;
+
+    const flagImage = req.files?.flagImage
+      ? req.files.flagImage[0].filename
+      : null;
+
+    const galleryImages = req.files?.gallery
+      ? req.files.gallery.map((file) => file.filename)
+      : parseIfJSON(gallery);
+
     const updateData = {
       ...(countryName && { countryName }),
       ...(countryImage && { countryImage }),
-      ...(fees && { fees: parseIfJSON(fees) }),
-      ...(duration && { duration: parseIfJSON(duration) }),
-      ...(intake && { intake }),
-      ...(language && { language: parseIfJSON(language) }),
-      ...(eligibility && { eligibility: parseIfJSON(eligibility) }),
+      ...(flagImage && { flagImage }),
+      ...(discription && { discription }),
       ...(whyChoose && { whyChoose: parseIfJSON(whyChoose) }),
       ...(costBreakdown && { costBreakdown: parseIfJSON(costBreakdown) }),
       ...(topUniversities && { topUniversities: parseIfJSON(topUniversities) }),
+      ...(faq && { faq: parseIfJSON(faq) }),
+      ...(galleryImages && { gallery: galleryImages }),
     };
 
     const updated = await countryPageModel.findByIdAndUpdate(id, updateData, {
@@ -242,7 +256,9 @@ exports.updateCountryPage = async (req, res) => {
     });
 
     if (!updated) {
-      return res.status(404).json({ success: false, message: "Country not found" });
+      return res
+        .status(404)
+        .json({ success: false, message: "Country not found" });
     }
 
     res.status(200).json({
@@ -255,6 +271,7 @@ exports.updateCountryPage = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
 
 // delete ------------
 exports.deleteCountryPage = async (req, res) => {

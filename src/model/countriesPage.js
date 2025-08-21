@@ -2,34 +2,30 @@ const mongoose = require("mongoose");
 
 const countryPageSchema = new mongoose.Schema({
   countryName: { type: String },
-  countryImage: { type: String },
-  fees: {
-    min: { type: Number },
-    max: { type: Number },
-  },
-  duration: {
-    min: { type: Number },
-    max: { type: Number },
-  },
-  intake: { type: String },
-  language: [String],
-  eligibility: [String],
-  whyChoose: [String],
-  costBreakdown: [
+  countryImage: { type: String }, // cover image -----------
+  flagImage: { type: String },
+  faq: [
     {
-      title: { type: String },       // e.g., "Tuition Fee", "Hostel", etc.
-      min: { type: Number },         // e.g., 50000
-      max: { type: Number },         // e.g., 100000
-      unit: { type: String },        // Optional: "₹/year", "Lakhs/year", etc.
-    }
+      heading: { type: String },
+      content: { type: String },
+    },
   ],
-    topUniversities: [
+  discription: { type: String },
+  whyChoose: [String],   //live in --------------------
+  costBreakdown: [    // study cost ---------------
     {
-      name: { type: String },    
-      link: { type: String },        
-    }
+      title: { type: String }, // e.g., "Tuition Fee", "Hostel", etc.
+      min: { type: Number }, // e.g., 50000
+      max: { type: Number }, // e.g., 100000
+    },
   ],
-  
+  topUniversities: [
+    {
+      name: { type: String },
+      link: { type: String },
+    },
+  ],
+  gallery: [String],
   createdAt: {
     type: Date,
     default: Date.now,

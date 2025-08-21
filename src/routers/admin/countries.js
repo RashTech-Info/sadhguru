@@ -31,10 +31,26 @@ router.put("/updateCountry/:id", updateCountry);
 router.delete("/deleteCountry/:id", deleteCountry);
 
 // country Pgae
-router.post("/addCountryPage", upload.single("countryImage"), addCountryPage);
+router.post(
+  "/addCountryPage",
+  upload.fields([
+    { name: "countryImage", maxCount: 1 },
+    { name: "flagImage", maxCount: 1 },
+    { name: "gallery", maxCount: 10 }, // multiple gallery images
+  ]),
+  addCountryPage
+);
+router.patch(
+  "/updateCountryPage/:id",
+  upload.fields([
+    { name: "countryImage", maxCount: 1 },
+    { name: "flagImage", maxCount: 1 },
+    { name: "gallery", maxCount: 10 },
+  ]),
+  updateCountryPage
+);
 router.get("/getAllCountryPage", getAllCountriePage);
 router.get("/getCountryPageById/:id", getCountryPageById);
-router.patch("/updateCountryPage/:id",upload.single("countryImage"), updateCountryPage);
 router.delete("/deleteCountryPage/:id", deleteCountryPage);
 
 module.exports = router;
