@@ -28,13 +28,13 @@ exports.otp_Send = async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
-         user: "developerinfo1212@gmail.com",
-        pass: "cocb txob mfpk zrar", // App password
+        user: "sadhguruedutech@gmail.com",
+        pass: "nhzs tmzo vfuf fsnu", // App password
       },
     });
 
     const mailOptions = {
-      from: "developerinfo1212@gmail.com",
+      from: "sadhguruedutech@gmail.com",
       to: findUser.email,
       subject: "Your OTP for Gmail Verification",
       text: `Your OTP is: ${otp}`,
